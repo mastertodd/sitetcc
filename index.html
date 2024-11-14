@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tela de Login</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body { 
+      font-family: 'Arial', sans-serif;
+      background: url('imagem.jpg') no-repeat center center/cover;
+      background-repeat: no-repeat; 
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .login-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(8px);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .input-box {
+      margin: 20px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.8);
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      display: none;
+    }
+
+    .login-btn {
+      background-color: #4CAF50;
+      color: #fff;
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .login-btn i {
+      margin-right: 8px;
+    }
+
+    .create-account {
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    .create-account a {
+      color: #7597de;
+      text-decoration: none;
+    }
+
+    .create-account a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="login-container">
+    <h2>Login</h2>
+    <form id="loginForm">
+      <div class="input-box">
+        <input type="text" id="username" placeholder="Nome de usuário ou e-mail" required>
+        <span class="error-message" id="usernameError">Por favor, insira um nome de usuário ou e-mail válido.</span>
+        <input type="password" id="password" placeholder="Senha" required>
+        <span class="error-message" id="passwordError">Por favor, insira sua senha.</span>
+      </div>
+      <button type="submit" class="login-btn">
+        <i class="fas fa-check"></i> Entrar
+      </button>
+    </form>
+    <div class="create-account">
+      <p>Não tem conta? <a href="tela_criarconta.html">Crie uma aqui</a></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('loginForm');
+    const username = document.getElementById('username');
+    const password = document.getElementById('password');
+    const usernameError = document.getElementById('usernameError');
+    const passwordError = document.getElementById('passwordError');
+
+    form.addEventListener('submit', (e) => {
+      let isValid = true;
+
+      // Validação de nome de usuário
+      if (username.value.trim() === '') {
+        usernameError.style.display = 'block';
+        isValid = false;
+      } else {
+        usernameError.style.display = 'none';
+      }
+
+      // Validação de senha
+      if (password.value.trim() === '') {
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else {
+        passwordError.style.display = 'none';
+      }
+
+      // Previne o envio do formulário se houver erros
+      if (!isValid) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>

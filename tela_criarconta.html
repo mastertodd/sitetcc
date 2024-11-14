@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Criar Conta</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Arial', sans-serif;
+      background: url('imagem.jpg') no-repeat center center/cover;
+      background-repeat: no-repeat; 
+      background-position: center;
+      background-attachment: fixed;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.5);
+      z-index: -1;
+    }
+
+    .signup-container {
+      background: rgba(255, 255, 255, 0.1);
+      padding: 40px;
+      border-radius: 15px;
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.37);
+      backdrop-filter: blur(8px);
+      width: 350px;
+      text-align: center;
+    }
+
+    h2 {
+      color: #fff;
+      margin-bottom: 20px;
+    }
+
+    .input-box {
+      margin: 20px 0;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: rgba(255, 255, 255, 0.8);
+      font-size: 16px;
+      margin-bottom: 10px;
+    }
+
+    .error-message {
+      color: red;
+      font-size: 0.9em;
+      display: none;
+    }
+
+    .signup-btn {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: #28a745;
+      color: #fff;
+      font-size: 16px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .login-link {
+      margin-top: 20px;
+      color: #fff;
+    }
+
+    .login-link a {
+      color: #7597de;
+      text-decoration: none;
+    }
+
+    .login-link a:hover {
+      text-decoration: underline;
+    }
+    
+    .signup-btn i {
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+  <div class="overlay"></div>
+  <div class="signup-container">
+    <h2>Criar Conta</h2>
+    <form id="signupForm" action="processar_formulario.php" method="POST">
+      <div class="input-box">
+        <input type="text" name="fullname" id="fullname" placeholder="Nome completo" required>
+        <span class="error-message" id="fullnameError">Por favor, insira seu nome completo.</span>
+
+        <input type="email" name="email" id="email" placeholder="E-mail" required>
+        <span class="error-message" id="emailError">Por favor, insira um e-mail válido.</span>
+
+        <input type="password" name="password" id="password" placeholder="Senha" required>
+        <span class="error-message" id="passwordError">A senha é obrigatória.</span>
+
+        <input type="password" name="confirmPassword" id="confirmPassword" placeholder="Confirmar senha" required>
+        <span class="error-message" id="confirmPasswordError">As senhas não coincidem.</span>
+      </div>
+      <button type="submit" class="signup-btn">
+        <i class="fas fa-user-plus"></i> Criar Conta
+      </button>
+    </form>
+    <div class="login-link">
+      <p>Já tem uma conta? <a href="index.html">Faça login aqui</a></p>
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('signupForm');
+    const fullname = document.getElementById('fullname');
+    const email = document.getElementById('email');
+    const password = document.getElementById('password');
+    const confirmPassword = document.getElementById('confirmPassword');
+    
+    const fullnameError = document.getElementById('fullnameError');
+    const emailError = document.getElementById('emailError');
+    const passwordError = document.getElementById('passwordError');
+    const confirmPasswordError = document.getElementById('confirmPasswordError');
+
+    form.addEventListener('submit', (e) => {
+      let isValid = true;
+
+      // Validação do nome completo
+      if (fullname.value.trim() === '') {
+        fullnameError.style.display = 'block';
+        isValid = false;
+      } else {
+        fullnameError.style.display = 'none';
+      }
+
+      // Validação do e-mail
+      const emailPattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+      if (!emailPattern.test(email.value)) {
+        emailError.style.display = 'block';
+        isValid = false;
+      } else {
+        emailError.style.display = 'none';
+      }
+
+      // Validação da senha
+      if (password.value.trim() === '') {
+        passwordError.style.display = 'block';
+        isValid = false;
+      } else {
+        passwordError.style.display = 'none';
+      }
+
+      // Verificação de confirmação de senha
+      if (password.value !== confirmPassword.value) {
+        confirmPasswordError.style.display = 'block';
+        isValid = false;
+      } else {
+        confirmPasswordError.style.display = 'none';
+      }
+
+      // Prevenir envio do formulário caso algum campo esteja inválido
+      if (!isValid) {
+        e.preventDefault();
+      }
+    });
+  </script>
+</body>
+</html>
